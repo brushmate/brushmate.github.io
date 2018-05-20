@@ -1,0 +1,19 @@
+install:
+  - wget -O hugo.deb $HUGO_RELEASE
+  - sudo dpkg -i hugo.deb
+  - rm -f hugo.deb
+  - gem install asciidoctor
+
+script:
+  - hugo
+  - cp CNAME public
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  target-branch: master
+  keep-history: true
+  local-dir: public
+  on:
+    branch: source
